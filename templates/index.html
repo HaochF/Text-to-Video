@@ -1,0 +1,46 @@
+<head>
+  <script>
+    function process() {
+      if(document.getElementById("loading").innerHTML!="loading...") {
+        actualprocess();
+      }
+    }
+    function actualprocess() {
+      document.getElementById("loading").innerHTML = "loading..."
+      document.getElementById("test").innerHTML = ""
+      document.getElementById("video").innerHTML = ""
+      var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+              //sleep(3);
+              document.getElementById("loading").innerHTML = "";
+
+              document.getElementById("test").innerHTML = '<video width="400" height="400" controls><source src="static/output.mp4" type="video/mp4">Your browser does not support the video tag.</video>';
+              document.getElementById("test").innerHTML = '<video width="400" height="400" controls><source src="static/output.mp4" type="video/mp4">Your browser does not support the video tag.</video>';
+            }
+          };
+          url = "/make_video/" + document.getElementById("to_summarize").value.replace(/\?/g, "123-1..43gg3");
+          xhttp.open("GET", url, true);
+          xhttp.send();
+    }
+    function wordCount() {
+      if(document.getElementById("to_summarize").value.length == 2000) {
+        document.getElementById("word_count_warning").innerHTML = "at word count limit!";
+      }
+      else {
+        document.getElementById("word_count_warning").innerHTML = "";
+      }
+    }
+  </script>
+</head>
+<div>
+  <h1> type text to videoify </h1>
+  <p> <textarea type="text" value="Text To Summarize" id="to_summarize" rows="4" cols="50" maxlength="2000" onkeyup = wordCount()></textarea></p>
+  <font id = "word_count_warning"  color = "RED"></font>
+  <button id = "start_button" onclick = "process();"> Submit </button>
+  <p id = "test"></p>
+  <p id = "video"></p>
+  <p id = "loading"></p>
+</div>
+
